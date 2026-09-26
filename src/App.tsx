@@ -110,7 +110,7 @@ function App() {
             />
             <main className="container-xl mt-5">
                 <div className="row mt-5">
-                    <h2 className="text-center">Nuestra Nueva Coleccion</h2>
+                    <h2 className="text-center">Nuestra Coleccion de Guitarras</h2>
                     {data.map((guitar) => (
                         <Guitar
                             guitar={guitar}
