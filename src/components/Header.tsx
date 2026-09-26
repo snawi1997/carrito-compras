@@ -1,4 +1,5 @@
-import type { GuitarC } from "../App"
+import type { GuitarC } from "../hooks/useCart"
+
 
 interface CartProp {
     cart: GuitarC[]
@@ -11,9 +12,7 @@ interface CartProp {
 
 export const Header = ({ cart, deletCart, incrementCantidad, decrementCantidad, vaciarCarrito }: CartProp) => {
 
-//calculat total pagar
-const TotalPagar = cart.reduce((total, pro) => total + (pro.cantidad * pro.price), 0)
-
+    const TotalPagar = cart.reduce((total, pro) => total + (pro.cantidad * pro.price), 0)
 
 
     return (
@@ -35,62 +34,64 @@ const TotalPagar = cart.reduce((total, pro) => total + (pro.cantidad * pro.price
                             <div id="carrito" className="bg-white p-3">
 
                                 {cart.length > 0 ? (
-                                    <table className="w-100 table">
-                                        <thead>
-                                            <tr>
-                                                <th>Imagen</th>
-                                                <th>Nombre</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                cart.map(({ name, image, id, price, cantidad }) => (
-                                                    <tr key={id}>
-                                                        <td>
-                                                            <img className="img-fluid" src={`./img/${image}.jpg`} alt="imagen guitarra" />
-                                                        </td>
-                                                        <td>{name}</td>
-                                                        <td className="fw-bold">
-                                                            ${price}
-                                                        </td>
-                                                        <td className="flex align-items-start gap-4">
-                                                            <button
-                                                            onClick={() => decrementCantidad(id)}
-                                                                type="button"
-                                                                className="btn btn-dark"
-                                                            >
-                                                                -
-                                                            </button>
-                                                            {cantidad}
-                                                            <button
-                                                            onClick={() => incrementCantidad(id)}
-                                                                type="button"
-                                                                className="btn btn-dark"
-                                                            >
-                                                                +
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <button
-                                                                onClick={()=> deletCart(id)}
-                                                                className="btn btn-danger"
-                                                                type="button"
-                                                            >
-                                                                X
-                                                            </button>
-                                                        </td>
+                                    <>
 
-                                                    </tr>
-                                                ))
-                                            }
+                                        <table className="w-100 table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Imagen</th>
+                                                    <th>Nombre</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    cart.map(({ name, image, id, price, cantidad }) => (
+                                                        <tr key={id}>
+                                                            <td>
+                                                                <img className="img-fluid" src={`./img/${image}.jpg`} alt="imagen guitarra" />
+                                                            </td>
+                                                            <td>{name}</td>
+                                                            <td className="fw-bold">
+                                                                ${price}
+                                                            </td>
+                                                            <td className="flex align-items-start gap-4">
+                                                                <button
+                                                                    onClick={() => decrementCantidad(id)}
+                                                                    type="button"
+                                                                    className="btn btn-dark"
+                                                                >
+                                                                    -
+                                                                </button>
+                                                                {cantidad}
+                                                                <button
+                                                                    onClick={() => incrementCantidad(id)}
+                                                                    type="button"
+                                                                    className="btn btn-dark"
+                                                                >
+                                                                    +
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button
+                                                                    onClick={() => deletCart(id)}
+                                                                    className="btn btn-danger"
+                                                                    type="button"
+                                                                >
+                                                                    X
+                                                                </button>
+                                                            </td>
 
-                                        </tbody>
+                                                        </tr>
+                                                    ))
+                                                }
+
+                                            </tbody>
+                                        </table>
                                         <p className="text-end">Total pagar: <span className="fw-bold">${TotalPagar}</span></p>
-                                    </table>
-
+                                    </>
 
                                 ) :
                                     <p className="text-center">El carrito esta vacio</p>}
